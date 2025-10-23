@@ -3,4 +3,12 @@
     <string name="developers">Eduardo Dnegri y Candela Ali</string>
     <string name="desarrollo">Desarrollado por</string>
     <string name="version">1.0.0</string>
+    <string-array name="monedas_array">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>ARS</item>
+        <item>GBP</item>
+        <item>BRL</item>
+    </string-array>
+
 </resources>
