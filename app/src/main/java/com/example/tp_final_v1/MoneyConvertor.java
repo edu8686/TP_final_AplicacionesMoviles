@@ -1,5 +1,6 @@
 package com.example.tp_final_v1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +13,10 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONObject;
 
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -23,6 +27,7 @@ public class MoneyConvertor extends AppCompatActivity {
     private final AtomicReference<String> monedaSeleccionada2 = new AtomicReference<>("ARS");
     private final AtomicBoolean isUpdating = new AtomicBoolean(false);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,7 @@ public class MoneyConvertor extends AppCompatActivity {
         TextInputEditText inputCurrency2 = findViewById(R.id.inputCurrency2);
         MaterialAutoCompleteTextView spinnerOrigen = findViewById(R.id.spinnerMonedaOrigen);
         MaterialAutoCompleteTextView spinnerDestino = findViewById(R.id.spinnerMonedaDestino);
+        Button btnActivityMap = findViewById(R.id.btnVerMapa);
 
         // --- Configuración de monedas ---
         String[] monedas = {"USD", "ARS", "EUR", "BRL", "JPY"};
@@ -112,6 +118,14 @@ public class MoneyConvertor extends AppCompatActivity {
                 } finally {
                     isUpdating.set(false);
                 }
+            }
+        });
+        btnActivityMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("DEBUG", "Intent a MapsActivity: " + MapsActivity.class.getName());
+                Intent intentAMaps = new Intent(MoneyConvertor.this, MapsActivity.class);
+                startActivity(intentAMaps);
             }
         });
     }
