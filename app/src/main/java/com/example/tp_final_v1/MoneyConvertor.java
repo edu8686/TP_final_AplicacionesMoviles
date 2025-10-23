@@ -4,15 +4,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.google.android.material.textfield.TextInputEditText;
+
 import org.json.JSONObject;
 
+import android.widget.ArrayAdapter;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -28,39 +28,30 @@ public class MoneyConvertor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money_convertor);
 
-        EditText inputCurrency1 = findViewById(R.id.inputCurrency1);
-        EditText inputCurrency2 = findViewById(R.id.inputCurrency2);
-        Spinner spinner1 = findViewById(R.id.spinnerMonedaOrigen);
-        Spinner spinner2 = findViewById(R.id.spinnerMonedaDestino);
+        TextInputEditText inputCurrency1 = findViewById(R.id.inputCurrency1);
+        TextInputEditText inputCurrency2 = findViewById(R.id.inputCurrency2);
+        MaterialAutoCompleteTextView spinnerOrigen = findViewById(R.id.spinnerMonedaOrigen);
+        MaterialAutoCompleteTextView spinnerDestino = findViewById(R.id.spinnerMonedaDestino);
 
-        // --- Spinner setup ---
+        // --- Configuración de monedas ---
         String[] monedas = {"USD", "ARS", "EUR", "BRL", "JPY"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, monedas);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(adapter);
-        spinner2.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1, // Layout simple para cada item
+                monedas
+        );
+        spinnerOrigen.setAdapter(adapter);
+        spinnerDestino.setAdapter(adapter);
 
-        // --- Selección de moneda ---
-        spinner1.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
-                monedaSeleccionada1.set(parent.getItemAtPosition(position).toString());
-                actualizarConversion(inputCurrency1, inputCurrency2);
-            }
-
-            @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+        // --- Listeners de selección ---
+        spinnerOrigen.setOnItemClickListener((parent, view, position, id) -> {
+            monedaSeleccionada1.set(spinnerOrigen.getText().toString());
+            actualizarConversion(inputCurrency1, inputCurrency2);
         });
 
-        spinner2.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
-                monedaSeleccionada2.set(parent.getItemAtPosition(position).toString());
-                actualizarConversion(inputCurrency1, inputCurrency2);
-            }
-
-            @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+        spinnerDestino.setOnItemClickListener((parent, view, position, id) -> {
+            monedaSeleccionada2.set(spinnerDestino.getText().toString());
+            actualizarConversion(inputCurrency1, inputCurrency2);
         });
 
         // --- Cargar tasas desde API ---
@@ -123,12 +114,10 @@ public class MoneyConvertor extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     // --- Función de conversión centralizada ---
-    private void actualizarConversion(EditText input1, EditText input2) {
+    private void actualizarConversion(TextInputEditText input1, TextInputEditText input2) {
         try {
             String valor = input1.getText().toString();
             if (valor.isEmpty()) return;

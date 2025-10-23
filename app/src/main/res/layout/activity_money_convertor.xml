@@ -25,61 +25,87 @@
         android:layout_marginTop="32dp"/>
 
     <!-- Primera fila: Moneda origen + Monto -->
-    <Spinner
-        android:id="@+id/spinnerMonedaOrigen"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutMonedaOrigen"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:hint="Moneda origen"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/inputCurrency1"
+        app:layout_constraintEnd_toStartOf="@id/layoutMontoOrigen"
         app:layout_constraintTop_toBottomOf="@id/textoinicial"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintWidth_percent="0.35"/>
+        app:layout_constraintWidth_percent="0.35">
 
-    <EditText
-        android:id="@+id/inputCurrency1"
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/spinnerMonedaOrigen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="true"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutMontoOrigen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Monto"
-        android:inputType="numberDecimal"
-        android:padding="12dp"
-        android:textSize="16sp"
-        android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/spinnerMonedaOrigen"
+        app:layout_constraintStart_toEndOf="@id/layoutMonedaOrigen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/spinnerMonedaOrigen"
-        app:layout_constraintBottom_toBottomOf="@id/spinnerMonedaOrigen"
-        app:layout_constraintWidth_percent="0.55"/>
+        app:layout_constraintTop_toTopOf="@id/layoutMonedaOrigen"
+        app:layout_constraintBottom_toBottomOf="@id/layoutMonedaOrigen"
+        app:layout_constraintWidth_percent="0.55">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputCurrency1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Segunda fila: Moneda destino + Monto -->
-    <Spinner
-        android:id="@+id/spinnerMonedaDestino"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutMonedaDestino"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:hint="Moneda destino"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/inputCurrency2"
-        app:layout_constraintTop_toBottomOf="@id/spinnerMonedaOrigen"
+        app:layout_constraintEnd_toStartOf="@id/layoutMontoDestino"
+        app:layout_constraintTop_toBottomOf="@id/layoutMonedaOrigen"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintWidth_percent="0.35"/>
+        app:layout_constraintWidth_percent="0.35">
 
-    <EditText
-        android:id="@+id/inputCurrency2"
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/spinnerMonedaDestino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:focusable="false"
+            android:clickable="true"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutMontoDestino"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Monto"
-        android:inputType="numberDecimal"
-        android:padding="12dp"
-        android:textSize="16sp"
-        android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/spinnerMonedaDestino"
+        app:layout_constraintStart_toEndOf="@id/layoutMonedaDestino"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/spinnerMonedaDestino"
-        app:layout_constraintBottom_toBottomOf="@id/spinnerMonedaDestino"
-        app:layout_constraintWidth_percent="0.55"/>
+        app:layout_constraintTop_toTopOf="@id/layoutMonedaDestino"
+        app:layout_constraintBottom_toBottomOf="@id/layoutMonedaDestino"
+        app:layout_constraintWidth_percent="0.55">
 
-
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputCurrency2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
