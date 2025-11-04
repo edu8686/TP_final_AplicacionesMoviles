@@ -27,5 +27,14 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        Button btnDondeComprar = findViewById(R.id.btnDndComprar);
+        btnDondeComprar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent activityMap = new Intent(SecondActivity.this, MapsActivity.class);
+                startActivity(activityMap);
+            }
+        });
+
     }
 }

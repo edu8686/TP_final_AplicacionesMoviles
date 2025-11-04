@@ -10,13 +10,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -25,22 +30,55 @@ public class MoneyConvertor extends AppCompatActivity {
     private final AtomicReference<JSONObject> ratesUSD = new AtomicReference<>(new JSONObject());
     private final AtomicReference<String> monedaSeleccionada1 = new AtomicReference<>("USD");
     private final AtomicReference<String> monedaSeleccionada2 = new AtomicReference<>("ARS");
+
     private final AtomicBoolean isUpdating = new AtomicBoolean(false);
 
+    private void actualizarVisibilidadTipoDolar(TextInputLayout layoutTipoDolar,
+                                                MaterialAutoCompleteTextView spinnerTipoDolar,
+                                                String[] tiposDolar) {
+        String origen = monedaSeleccionada1.get();
+        String destino = monedaSeleccionada2.get();
+
+        if ((origen.equals("USD") && destino.equals("ARS")) || (origen.equals("ARS") && destino.equals("USD"))) {
+            layoutTipoDolar.setVisibility(View.VISIBLE);
+            ArrayAdapter<String> adapterTipoDolar = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    tiposDolar
+            );
+            spinnerTipoDolar.setAdapter(adapterTipoDolar);
+
+        } else {
+            layoutTipoDolar.setVisibility(View.GONE);
+        }
+    }
+
+
+    private void actualizarConversionMonedas() {
+        String origen = monedaSeleccionada1.get();
+        String destino = monedaSeleccionada2.get();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money_convertor);
 
+        Log.d("MoneyConvertor", "MoneyConvertor en onCreate");
+
         TextInputEditText inputCurrency1 = findViewById(R.id.inputCurrency1);
         TextInputEditText inputCurrency2 = findViewById(R.id.inputCurrency2);
+        TextView textConversion = findViewById(R.id.textCotizacion);
         MaterialAutoCompleteTextView spinnerOrigen = findViewById(R.id.spinnerMonedaOrigen);
         MaterialAutoCompleteTextView spinnerDestino = findViewById(R.id.spinnerMonedaDestino);
+        TextInputLayout layoutTipoDolar = findViewById(R.id.layoutTipoDolar);
+        MaterialAutoCompleteTextView spinnerTipoDolar = findViewById(R.id.spinnerTipoDolar);
         Button btnActivityMap = findViewById(R.id.btnVerMapa);
 
         // --- Configuración de monedas ---
         String[] monedas = {"USD", "ARS", "EUR", "BRL", "JPY"};
+        String[] tiposDolar = {"Oficial", "Blue", "MEP", "CCL", "Mayorista"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1, // Layout simple para cada item
@@ -49,16 +87,24 @@ public class MoneyConvertor extends AppCompatActivity {
         spinnerOrigen.setAdapter(adapter);
         spinnerDestino.setAdapter(adapter);
 
+
+
         // --- Listeners de selección ---
         spinnerOrigen.setOnItemClickListener((parent, view, position, id) -> {
             monedaSeleccionada1.set(spinnerOrigen.getText().toString());
             actualizarConversion(inputCurrency1, inputCurrency2);
+            actualizarVisibilidadTipoDolar(layoutTipoDolar, spinnerTipoDolar, tiposDolar);
         });
 
         spinnerDestino.setOnItemClickListener((parent, view, position, id) -> {
             monedaSeleccionada2.set(spinnerDestino.getText().toString());
             actualizarConversion(inputCurrency1, inputCurrency2);
+            actualizarVisibilidadTipoDolar(layoutTipoDolar, spinnerTipoDolar, tiposDolar);
         });
+
+
+
+
 
         // --- Cargar tasas desde API ---
         new Thread(() -> {
@@ -120,6 +166,9 @@ public class MoneyConvertor extends AppCompatActivity {
                 }
             }
         });
+
+
+
         btnActivityMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
