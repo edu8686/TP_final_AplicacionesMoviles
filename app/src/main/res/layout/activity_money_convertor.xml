@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/beigeclaro"
+    tools:context=".MoneyConvertor">
+
+
+    <!--  ***************** CAMBIOS CANDE *****************-->
+
+    <!--icono-->
+    <ImageView
+        android:id="@+id/icono"
+        android:layout_width="410dp"
+        android:layout_height="140dp"
+        android:contentDescription="@string/icono"
+        android:src="@drawable/icono"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp"
+        tools:ignore="MissingConstraints" />
+
+    <!--titulo-->
+    <TextView
+        android:id="@+id/textoinicial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/conversor_de_monedas"
+        android:textSize="24sp"
+        android:textColor="@color/backgreen"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/icono"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+
+
+
+    <!-- Menú desplegable: Tipo de dólar -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutTipoDolar"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="247dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/tipo_de_dolar"
+        app:layout_constraintEnd_toStartOf="@id/textCotizacion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textoinicial"
+        app:layout_constraintWidth_percent="0.6">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/spinnerTipoDolar"
+            android:layout_width="196dp"
+            android:layout_height="55dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- Primera fila: Moneda origen + Monto -->
+
+    <TextView
+        android:id="@+id/textCotizacion"
+        android:layout_width="123dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/_1_usd_1500_ars"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/layoutTipoDolar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/layoutTipoDolar"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutMonedaOrigen"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/moneda_origen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/layoutMontoOrigen"
+        app:layout_constraintTop_toBottomOf="@id/layoutTipoDolar"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintWidth_percent="0.35">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/spinnerMonedaOrigen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:focusable="true"
+            android:clickable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutMontoOrigen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/montoorigen"
+        app:layout_constraintStart_toEndOf="@id/layoutMonedaOrigen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/layoutMonedaOrigen"
+        app:layout_constraintBottom_toBottomOf="@id/layoutMonedaOrigen"
+        app:layout_constraintWidth_percent="0.55">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputCurrency1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- Segunda fila: Moneda destino + Monto -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutMonedaDestino"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/moneda_destino"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/layoutMontoDestino"
+        app:layout_constraintTop_toBottomOf="@id/layoutMonedaOrigen"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintWidth_percent="0.35">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/spinnerMonedaDestino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:focusable="true"
+            android:clickable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutMontoDestino"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/montodestino"
+        app:layout_constraintStart_toEndOf="@id/layoutMonedaDestino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/layoutMonedaDestino"
+        app:layout_constraintBottom_toBottomOf="@id/layoutMonedaDestino"
+        app:layout_constraintWidth_percent="0.55">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputCurrency2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!--    *******************************************    -->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textoinicial"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Conversor de Monedas"-->
+    <!--        android:textSize="24sp"-->
+    <!--        android:textColor="@color/backgreen"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:gravity="center"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        android:layout_marginTop="32dp"/>-->
+
+    <!-- Primera fila: Moneda origen + Monto -->
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/layoutMonedaOrigen"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Moneda origen"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toStartOf="@id/layoutMontoOrigen"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/textoinicial"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginEnd="8dp"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        app:layout_constraintWidth_percent="0.35">-->
+
+    <!--        <com.google.android.material.textfield.MaterialAutoCompleteTextView-->
+    <!--            android:id="@+id/spinnerMonedaOrigen"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:inputType="none"-->
+    <!--            android:focusable="false"-->
+    <!--            android:clickable="true"/>-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/layoutMontoOrigen"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Monto"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/layoutMonedaOrigen"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/layoutMonedaOrigen"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/layoutMonedaOrigen"-->
+    <!--        app:layout_constraintWidth_percent="0.55">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/inputCurrency1"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:inputType="numberDecimal"/>-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--    &lt;!&ndash; Segunda fila: Moneda destino + Monto &ndash;&gt;-->
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/layoutMonedaDestino"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Moneda destino"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toStartOf="@id/layoutMontoDestino"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/layoutMonedaOrigen"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginEnd="8dp"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        app:layout_constraintWidth_percent="0.35">-->
+
+    <!--        <com.google.android.material.textfield.MaterialAutoCompleteTextView-->
+    <!--            android:id="@+id/spinnerMonedaDestino"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:inputType="none"-->
+    <!--            android:focusable="false"-->
+    <!--            android:clickable="true"/>-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/layoutMontoDestino"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Monto"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/layoutMonedaDestino"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/layoutMonedaDestino"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/layoutMonedaDestino"-->
+    <!--        app:layout_constraintWidth_percent="0.55">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/inputCurrency2"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:inputType="numberDecimal"/>-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+    <!--    **************** CAMBIOS CANDE ******************-->
+
+    <!--    HACER QUE SE ACTUALICE SEGUN LA ULTIMA FECHA DEL DOLAR-->
+<!--    <TextView-->
+<!--        android:id="@+id/textActualizacion"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="312dp"-->
+<!--        android:text="@string/actualizado_al_12_10_2025_6_21_p_m"-->
+<!--        android:textColor="@android:color/black"-->
+<!--        android:textSize="15sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.497"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/textCotizacion" />-->
+
+    <TextView
+        android:id="@+id/textActualizacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="310dp"
+        android:text="Actualización..."
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/textCotizacion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--*****************************************************************************-->
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVerMapa"
+        android:layout_width="227dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="164dp"
+        android:text="@string/d_nde_comprar"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:backgroundTint="@color/backgreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutMonedaDestino" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
